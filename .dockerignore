@@ -1,0 +1,30 @@
+# Dependency directories
+node_modules/
+
+# Build output (Vite uses dist)
+dist/
+
+# Version control
+.git/
+.gitignore
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

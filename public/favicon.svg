@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" /> <stop offset="100%" stop-color="#020617" /> </linearGradient>
+
+    <linearGradient id="bldgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd" /> <stop offset="100%" stop-color="#2563eb" /> </linearGradient>
+  </defs>
+
+  <polygon points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5" fill="url(#bgGrad)" stroke="#3b82f6" stroke-width="1.5" />
+
+  <circle cx="50" cy="55" r="33" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.4" />
+
+  <line x1="31" y1="25" x2="31" y2="78" stroke="url(#bldgGrad)" stroke-width="2" stroke-linecap="round" />
+  <circle cx="31" cy="42" r="4.5" fill="url(#bldgGrad)" />
+  <circle cx="31" cy="62" r="7.5" fill="url(#bldgGrad)" />
+  <path d="M 31,62 L 23,78 M 31,62 L 39,78" stroke="url(#bldgGrad)" stroke-width="2" stroke-linecap="round" />
+
+  <path d="M 46,78 Q 48,45 50,15 Q 52,45 54,78 Z" fill="url(#bldgGrad)" />
+
+  <polygon points="63,78 75,78 72,28 66,28" fill="url(#bldgGrad)" />
+  <polygon points="67.5,32 70.5,32 70,40 68,40" fill="#151e2e" /> 
+
+  <line x1="18" y1="78" x2="82" y2="78" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" />
+</svg>

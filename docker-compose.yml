@@ -1,0 +1,10 @@
+services:
+  frontend:
+    image: ghcr.io/jeroneo/shanghai-15min-app:latest
+    
+    container_name: shanghai-app-frontend
+    
+    ports:
+      - "8080:80"
+    
+    restart: unless-stopped
