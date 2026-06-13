@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Map, { useControl, Marker } from 'react-map-gl/maplibre'; // <-- Imported Marker
+import Map, { useControl, Marker } from 'react-map-gl/maplibre'; 
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import { HexagonLayer } from '@deck.gl/aggregation-layers';
 import { GeoJsonLayer } from '@deck.gl/layers';
@@ -72,7 +72,7 @@ export default function App() {
   const [showAboutModal, setShowAboutModal] = useState(false);
 
   // ── Pin Point States ──
-  const [selectedLocation, setSelectedLocation] = useState(null); // { lat, lon, name }
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const [closestPoint, setClosestPoint] = useState(null);
 
   // ── UI States ──
@@ -129,7 +129,6 @@ export default function App() {
     let minDistance = Infinity;
     let nearest = null;
 
-    // Linear scanning for the closest point coordinate mapping
     for (let i = 0; i < data.length; i++) {
       const p = data[i];
       if (!p.lon || !p.lat) continue;
@@ -163,7 +162,7 @@ export default function App() {
     setSearchQuery(query);
     
     if (query.length < 3) {
-      searchResults([]);
+      setSearchResults([]);
       return;
     }
 
@@ -312,7 +311,6 @@ export default function App() {
     };
   }, [hoverInfo, transportMode, activeTrack, selectedSports, sportMatchMode, requireBaselineForTrackA, maxAqi]);
 
-  // Evaluate structural validity parameters for the pin panel metrics panel
   const pinPointEvaluation = useMemo(() => {
     if (!closestPoint) return null;
     const passesCurrentFilters = evaluatePoint(closestPoint);
@@ -352,7 +350,6 @@ export default function App() {
       >
         <DeckGLOverlay layers={layers} interleaved={true} />
 
-        {/* ── Search Pin Marker Component ── */}
         {selectedLocation && (
           <Marker 
             longitude={selectedLocation.lon} 
@@ -360,7 +357,6 @@ export default function App() {
             anchor="bottom"
           >
             <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              {/* Simple High-Contrast SVG Pin Pinpoint */}
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style={{ filter: 'drop-shadow(0px 3px 5px rgba(0,0,0,0.4))' }}>
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#ef4444"/>
               </svg>
@@ -369,7 +365,6 @@ export default function App() {
         )}
       </Map>
 
-      {/* Hex Map Hover Tooltip */}
       {tooltipData && (
         <div style={{
           position: 'absolute', zIndex: 10, pointerEvents: 'none',
@@ -412,7 +407,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Resizing Control Sidebar */}
       <div style={{
         position: 'absolute', top: 20, left: 20, width: '340px', zIndex: 20, 
         background: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(12px)',
@@ -433,7 +427,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Search Bar */}
           <div style={{ position: 'relative', zIndex: 999 }}>
             <input
               type="text"
@@ -609,7 +602,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── NEW: Selected Location Data Breakdown Card ── */}
       {selectedLocation && pinPointEvaluation && (
         <div style={{
           position: 'absolute', top: 20, right: 20, width: '320px', zIndex: 20,
@@ -634,7 +626,6 @@ export default function App() {
             {selectedLocation.name}
           </p>
 
-          {/* Compliance Badge */}
           <div style={{ 
             display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', 
             borderRadius: '8px', marginBottom: '16px', fontSize: '13px', fontWeight: 500,
@@ -646,7 +637,6 @@ export default function App() {
             <span>{pinPointEvaluation.passes ? 'Matches Filter Criteria' : 'Fails Filter Criteria'}</span>
           </div>
 
-          {/* Quick Metrics Checklist Grid */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '14px', marginBottom: '14px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
               <span style={{ color: '#cbd5e1' }}>Air Quality (AQI):</span>
@@ -668,7 +658,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Exact Reachable Facility Count Breakdown */}
           <h3 style={{ margin: '0 0 8px 0', fontSize: '11px', textTransform: 'uppercase', color: '#94a3b8', letterSpacing: '0.05em' }}>
             Reachable Facilities Total
           </h3>
@@ -683,7 +672,6 @@ export default function App() {
         </div>
       )}
 
-      {/* AQI Legend Overlay Popup */}
       {showAqiInfo && (
         <div style={{
           position: 'absolute', top: aqiPopPos.y, left: aqiPopPos.x, zIndex: 9999,
@@ -707,7 +695,6 @@ export default function App() {
         </div>
       )}
 
-      {/* ── NEW: About Button Trigger ── */}
       <button 
         onClick={() => setShowAboutModal(true)}
         style={{
@@ -721,7 +708,6 @@ export default function App() {
         ℹ️ About Methodology
       </button>
 
-      {/* ── NEW: About Modal Overlay ── */}
       {showAboutModal && (
         <div style={{
           position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
@@ -788,6 +774,34 @@ export default function App() {
               <li><strong>Cycling:</strong> 3.61 m/s (based on conventional bicycle free-flow averages)</li>
               <li><strong>Driving:</strong> 6.75 m/s (based on peak-hour network averages from taxi floating car data)</li>
             </ul>
+
+            {/* ── NEW: Download Data Pipeline Notebook Button ── */}
+            <div style={{ 
+              marginTop: '24px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)', 
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' 
+            }}>
+              <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0 }}>Interested in the raw data generation?</p>
+              <a 
+                href="/shanghai_15min_analysis.ipynb" 
+                download
+                style={{
+                  background: '#3b82f6', color: '#ffffff', textDecoration: 'none',
+                  padding: '10px 20px', borderRadius: '8px', fontSize: '14px', fontWeight: 600,
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.2)', transition: 'background 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download Python Pipeline (.ipynb)
+              </a>
+            </div>
+
           </div>
         </div>
       )}
