@@ -69,6 +69,7 @@ export default function App() {
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
   const [firstLabelLayerId, setFirstLabelLayerId] = useState(null);
   const [hoverInfo, setHoverInfo] = useState(null);
+  const [showAboutModal, setShowAboutModal] = useState(false);
 
   // ── Pin Point States ──
   const [selectedLocation, setSelectedLocation] = useState(null); // { lat, lon, name }
@@ -162,7 +163,7 @@ export default function App() {
     setSearchQuery(query);
     
     if (query.length < 3) {
-      setSearchResults([]);
+      searchResults([]);
       return;
     }
 
@@ -702,6 +703,91 @@ export default function App() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── NEW: About Button Trigger ── */}
+      <button 
+        onClick={() => setShowAboutModal(true)}
+        style={{
+          position: 'absolute', bottom: '30px', right: '30px', zIndex: 1000,
+          background: 'rgba(15, 23, 42, 0.9)', color: '#f8fafc',
+          border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px',
+          padding: '8px 16px', cursor: 'pointer', fontWeight: 'bold',
+          backdropFilter: 'blur(4px)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)'
+        }}
+      >
+        ℹ️ About Methodology
+      </button>
+
+      {/* ── NEW: About Modal Overlay ── */}
+      {showAboutModal && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+          background: 'rgba(0, 0, 0, 0.6)', zIndex: 9999, display: 'flex',
+          justifyContent: 'center', alignItems: 'center', backdropFilter: 'blur(4px)'
+        }}>
+          <div style={{
+            background: '#0f172a', border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: '12px', padding: '24px', width: '90%', maxWidth: '600px',
+            maxHeight: '80vh', overflowY: 'auto', color: '#f8fafc',
+            boxShadow: '0 20px 25px -5px rgba(0,0,0,0.5)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <h2 style={{ margin: 0, fontSize: '20px' }}>Methodology: Shanghai 15-Minute City</h2>
+              <button 
+                onClick={() => setShowAboutModal(false)}
+                style={{
+                  background: 'transparent', color: '#94a3b8', border: 'none',
+                  fontSize: '20px', cursor: 'pointer'
+                }}
+              >
+                ✖
+              </button>
+            </div>
+
+            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#cbd5e1' }}>
+              This spatial accessibility analysis evaluates whether a resident can reach essential daily services within a 15-minute travel window. 
+              The framework is grounded in the <strong>Shanghai Master Plan 2017–2035</strong> (which targets 99% coverage by 2035) and the 
+              national <strong>GB 50180-2018</strong> planning standard.
+            </p>
+
+            <h3 style={{ fontSize: '16px', color: '#38bdf8', marginTop: '20px', marginBottom: '8px' }}>
+              📍 Baseline: 15-Minute City (15min-CLC)
+            </h3>
+            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#cbd5e1', margin: 0 }}>
+              The baseline evaluates if the standard daily essentials are reachable. A zone qualifies if it has access to:
+            </p>
+            <ul style={{ fontSize: '14px', color: '#cbd5e1', margin: '8px 0', paddingLeft: '20px' }}>
+              <li>Groceries / Markets (≥ 1)</li>
+              <li>Pharmacy (≥ 1) and Healthcare (≥ 1)</li>
+              <li>Education (≥ 2, e.g., kindergarten + primary)</li>
+              <li>Third Places (≥ 3, e.g., dining, cultural venues)</li>
+              <li>Outdoor / Green spaces (≥ 1)</li>
+            </ul>
+
+            <h3 style={{ fontSize: '16px', color: '#10b981', marginTop: '20px', marginBottom: '8px' }}>
+              🏃 Health Track A: Active Lifestyle
+            </h3>
+            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#cbd5e1', margin: 0 }}>
+              This is a stricter subset designed to identify zones that support preventive health and active lifestyles. In addition to medical, outdoor space, and fresh nutrition requirements, residents must be able to reach:
+            </p>
+            <ul style={{ fontSize: '14px', color: '#cbd5e1', margin: '8px 0', paddingLeft: '20px' }}>
+              <li><strong>≥ 1 Distinct Active Sport Type</strong> (e.g., swimming pools, gyms, yoga/dance studios, or sports courts).</li>
+            </ul>
+
+            <h3 style={{ fontSize: '16px', color: '#fbbf24', marginTop: '20px', marginBottom: '8px' }}>
+              ⏱️ Travel Speeds
+            </h3>
+            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#cbd5e1', margin: 0 }}>
+              Isochrones are calculated using empirical Shanghai data:
+            </p>
+            <ul style={{ fontSize: '14px', color: '#cbd5e1', margin: '8px 0', paddingLeft: '20px' }}>
+              <li><strong>Walking:</strong> 1.45 m/s (based on 940 pedestrian crossings)</li>
+              <li><strong>Cycling:</strong> 3.61 m/s (based on conventional bicycle free-flow averages)</li>
+              <li><strong>Driving:</strong> 6.75 m/s (based on peak-hour network averages from taxi floating car data)</li>
+            </ul>
           </div>
         </div>
       )}
